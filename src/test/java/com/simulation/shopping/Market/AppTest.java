@@ -78,6 +78,32 @@ public class AppTest {
 	}
 
 	@Test
+	public void TestCalculateTotalToPayForOnlyCoke() {
+
+		Coke coke = new Coke(0.70, 10, "Coke");
+		Visitable[] items = new Visitable[] { coke };
+
+		when(shoppingCartImpl.visit(coke)).thenReturn(1.0);
+
+		double total = app.calculateTotalToPay(items, shoppingCartImpl);
+		assertEquals(total, 6.0, PRECISION);
+
+	}
+
+	@Test
+	public void TestCalculateTotalToPayForOnlyBean() {
+
+		Bean bean = new Bean(0.50, 6, "Bean");
+
+		Visitable[] items = new Visitable[] { bean };
+
+		when(shoppingCartImpl.visit(bean)).thenReturn(1.99);
+		double total = app.calculateTotalToPay(items, shoppingCartImpl);
+		assertEquals(total, 1.01, PRECISION);
+
+	}
+
+	@Test
 	public void TestCalculateBeanDiscount() {
 
 		Bean bean = new Bean(0.50, 6, "Bean");
